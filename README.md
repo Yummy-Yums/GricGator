@@ -119,13 +119,11 @@ Frontend can be:
 - **Tokio** – async fetching
 - **Reqwest** – external APIs
     
-
 ### Data Storage
 
 - SQLite (simple, demo-friendly)
 - Later: Postgres
     
-
 ---
 
 ## 🏗️ Architecture (Simple & Clean)
@@ -160,10 +158,7 @@ Choose **1–2**, not all:
     
 - 🧑🏽‍🌾 Focus on 3–5 staple crops only
     
-
 ---
-
-## 🏆 Why This Will Score High
 
 ### ✅ Impact
 
@@ -187,43 +182,3 @@ Choose **1–2**, not all:
 - Aggregation + insight layer (not just data dump)
     
 ---
-
-## 🚀 Hackathon MVP Plan (48–72 Hours)
-
-**Day 1**
-
-- Rust API
-- Database schema
-- Mock market data
-    
-**Day 2**
-
-- Weather integration
-- Trend calculations
-- CLI commands
-
-**Day 3**
-
-- UI or demo scripts
-- README + pitch
-- Polish UX
-    
----
-
-## 🎤 Demo Story (Very Important)
-
-> “A farmer should not guess prices. AgriPulse gives real-time market intelligence built entirely in Rust.”
-
-Judges remember _stories_, not just code.
-
----
-
-If you want, I can:
-
-- Design the **database schema**
-- Generate a **Rust Axum starter repo**
-- Help you craft a **winning pitch deck**
-- Scope this for **solo vs team**
-    
-
-Just tell me 👌

@@ -1,0 +1,984 @@
+{
+  "cities": [
+    {
+      "id": 2293721,
+      "name": "Yunyo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.0074,
+        "lat": 10.47494
+      }
+    },
+    {
+      "id": 2293801,
+      "name": "Yendi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.00991,
+        "lat": 9.44272
+      }
+    },
+    {
+      "id": 2294034,
+      "name": "Winneba",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.62313,
+        "lat": 5.35113
+      }
+    },
+    {
+      "id": 2294076,
+      "name": "Western Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.5,
+        "lat": 5.5
+      }
+    },
+    {
+      "id": 2294086,
+      "name": "Wankyi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.10456,
+        "lat": 7.73916
+      }
+    },
+    {
+      "id": 2294206,
+      "name": "Wa",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.50192,
+        "lat": 10.06069
+      }
+    },
+    {
+      "id": 2294234,
+      "name": "Volta Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.5,
+        "lat": 7
+      }
+    },
+    {
+      "id": 2294286,
+      "name": "Upper West Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.25,
+        "lat": 10.33333
+      }
+    },
+    {
+      "id": 2294291,
+      "name": "Upper East Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.75,
+        "lat": 10.75
+      }
+    },
+    {
+      "id": 2294305,
+      "name": "Maudaso",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.16135,
+        "lat": 6.13009
+      }
+    },
+    {
+      "id": 2294342,
+      "name": "Tumu",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.97911,
+        "lat": 10.87645
+      }
+    },
+    {
+      "id": 2294665,
+      "name": "Teshi Old Town",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.10722,
+        "lat": 5.58365
+      }
+    },
+    {
+      "id": 2294700,
+      "name": "Tema",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.01657,
+        "lat": 5.66698
+      }
+    },
+    {
+      "id": 2294727,
+      "name": "Techiman",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.94137,
+        "lat": 7.58616
+      }
+    },
+    {
+      "id": 2294768,
+      "name": "Tarkwa",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.98474,
+        "lat": 5.30644
+      }
+    },
+    {
+      "id": 2294877,
+      "name": "Tamale",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.8393,
+        "lat": 9.40078
+      }
+    },
+    {
+      "id": 2294893,
+      "name": "Tano-Kwayem",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.0852,
+        "lat": 7.44159
+      }
+    },
+    {
+      "id": 2294915,
+      "name": "Takoradi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.75536,
+        "lat": 4.88447
+      }
+    },
+    {
+      "id": 2294938,
+      "name": "Tafo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.61275,
+        "lat": 6.73453
+      }
+    },
+    {
+      "id": 2294962,
+      "name": "Swedru",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.69984,
+        "lat": 5.53711
+      }
+    },
+    {
+      "id": 2295021,
+      "name": "Sunyani",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.32676,
+        "lat": 7.33991
+      }
+    },
+    {
+      "id": 2295065,
+      "name": "Suhum",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.45004,
+        "lat": 6.04089
+      }
+    },
+    {
+      "id": 2295385,
+      "name": "Shama Junction",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.63011,
+        "lat": 5.00872
+      }
+    },
+    {
+      "id": 2295458,
+      "name": "Sekondi-Takoradi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.7137,
+        "lat": 4.934
+      }
+    },
+    {
+      "id": 2295517,
+      "name": "Savelugu",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.8253,
+        "lat": 9.62441
+      }
+    },
+    {
+      "id": 2295672,
+      "name": "Saltpond",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.06058,
+        "lat": 5.20913
+      }
+    },
+    {
+      "id": 2295684,
+      "name": "Salaga",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.51875,
+        "lat": 8.55083
+      }
+    },
+    {
+      "id": 2295692,
+      "name": "Sakumona",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.04746,
+        "lat": 5.61304
+      }
+    },
+    {
+      "id": 2295773,
+      "name": "Osu Castle",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.2,
+        "lat": 5.55
+      }
+    },
+    {
+      "id": 2295840,
+      "name": "Prestea",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.14284,
+        "lat": 5.43274
+      }
+    },
+    {
+      "id": 2296458,
+      "name": "Kasoa",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.4224,
+        "lat": 5.53302
+      }
+    },
+    {
+      "id": 2296524,
+      "name": "Odumase",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.31819,
+        "lat": 7.37134
+      }
+    },
+    {
+      "id": 2296564,
+      "name": "Akim Oda",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.99507,
+        "lat": 5.92313
+      }
+    },
+    {
+      "id": 2296606,
+      "name": "Obuase",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.66191,
+        "lat": 6.20602
+      }
+    },
+    {
+      "id": 2296969,
+      "name": "Nungua",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.07713,
+        "lat": 5.60106
+      }
+    },
+    {
+      "id": 2297141,
+      "name": "Nsawam",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.35026,
+        "lat": 5.80893
+      }
+    },
+    {
+      "id": 2297169,
+      "name": "Northern Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1,
+        "lat": 9.5
+      }
+    },
+    {
+      "id": 2297313,
+      "name": "Nkawkaw",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.7662,
+        "lat": 6.55121
+      }
+    },
+    {
+      "id": 2297503,
+      "name": "Nawari",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.26667,
+        "lat": 10.21667
+      }
+    },
+    {
+      "id": 2297505,
+      "name": "Navrongo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.0921,
+        "lat": 10.89557
+      }
+    },
+    {
+      "id": 2297810,
+      "name": "Mumford",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.75897,
+        "lat": 5.26176
+      }
+    },
+    {
+      "id": 2297816,
+      "name": "Muete",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.07775,
+        "lat": 6.02824
+      }
+    },
+    {
+      "id": 2297834,
+      "name": "Mpraeso",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.73462,
+        "lat": 6.5932
+      }
+    },
+    {
+      "id": 2298264,
+      "name": "Mampong",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.4001,
+        "lat": 7.06273
+      }
+    },
+    {
+      "id": 2298330,
+      "name": "Medina Estates",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.16413,
+        "lat": 5.68234
+      }
+    },
+    {
+      "id": 2298469,
+      "name": "Langa",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.88616,
+        "lat": 9.57081
+      }
+    },
+    {
+      "id": 2298528,
+      "name": "Kwesimintsim",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.78761,
+        "lat": 4.91452
+      }
+    },
+    {
+      "id": 2298890,
+      "name": "Kumasi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.62443,
+        "lat": 6.68848
+      }
+    },
+    {
+      "id": 2299233,
+      "name": "Kpandu",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.29306,
+        "lat": 6.99536
+      }
+    },
+    {
+      "id": 2299236,
+      "name": "Kpandae",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.01127,
+        "lat": 8.46885
+      }
+    },
+    {
+      "id": 2299349,
+      "name": "Konongo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.21667,
+        "lat": 6.61667
+      }
+    },
+    {
+      "id": 2299522,
+      "name": "Koforidua",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.25913,
+        "lat": 6.09408
+      }
+    },
+    {
+      "id": 2299625,
+      "name": "Kintampo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.73058,
+        "lat": 8.05627
+      }
+    },
+    {
+      "id": 2299636,
+      "name": "Kibi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.55376,
+        "lat": 6.16494
+      }
+    },
+    {
+      "id": 2299642,
+      "name": "Kete Krachi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.0498,
+        "lat": 7.79391
+      }
+    },
+    {
+      "id": 2299645,
+      "name": "Keta",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.9879,
+        "lat": 5.91793
+      }
+    },
+    {
+      "id": 2299872,
+      "name": "Kalesesi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.05,
+        "lat": 10.55
+      }
+    },
+    {
+      "id": 2299978,
+      "name": "Kablima",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.26086,
+        "lat": 8.9561
+      }
+    },
+    {
+      "id": 2300372,
+      "name": "Hohoe",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.47362,
+        "lat": 7.15181
+      }
+    },
+    {
+      "id": 2300379,
+      "name": "Ho",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.46667,
+        "lat": 6.6
+      }
+    },
+    {
+      "id": 2300660,
+      "name": "Republic of Ghana",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2,
+        "lat": 8
+      }
+    },
+    {
+      "id": 2300721,
+      "name": "Gbawe",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.31035,
+        "lat": 5.57714
+      }
+    },
+    {
+      "id": 2300883,
+      "name": "Foso",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.28657,
+        "lat": 5.70119
+      }
+    },
+    {
+      "id": 2301190,
+      "name": "Elmina",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.34804,
+        "lat": 5.08981
+      }
+    },
+    {
+      "id": 2301217,
+      "name": "Ejura",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.35617,
+        "lat": 7.38558
+      }
+    },
+    {
+      "id": 2301360,
+      "name": "Eastern Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.5,
+        "lat": 6.5
+      }
+    },
+    {
+      "id": 2301400,
+      "name": "Dunkwa",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.77995,
+        "lat": 5.96562
+      }
+    },
+    {
+      "id": 2301464,
+      "name": "Duayaw-Nkwanta",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.1028,
+        "lat": 7.17242
+      }
+    },
+    {
+      "id": 2301639,
+      "name": "Dome",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.2361,
+        "lat": 5.65003
+      }
+    },
+    {
+      "id": 2301669,
+      "name": "Dodoyiri",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.3,
+        "lat": 10.05
+      }
+    },
+    {
+      "id": 2302135,
+      "name": "Chum",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.16955,
+        "lat": 6.04237
+      }
+    },
+    {
+      "id": 2302353,
+      "name": "Central Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1,
+        "lat": 5.5
+      }
+    },
+    {
+      "id": 2302357,
+      "name": "Cape Coast",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.2466,
+        "lat": 5.10535
+      }
+    },
+    {
+      "id": 2302417,
+      "name": "Buokurom",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.59606,
+        "lat": 6.72488
+      }
+    },
+    {
+      "id": 2302547,
+      "name": "Brong-Ahafo Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.5,
+        "lat": 7.75
+      }
+    },
+    {
+      "id": 2302821,
+      "name": "Bolgatanga",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.85139,
+        "lat": 10.78556
+      }
+    },
+    {
+      "id": 2303060,
+      "name": "Bibiani",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.31938,
+        "lat": 6.46346
+      }
+    },
+    {
+      "id": 2303125,
+      "name": "Berekum",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.58404,
+        "lat": 7.4534
+      }
+    },
+    {
+      "id": 2303224,
+      "name": "Bekwai",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.57741,
+        "lat": 6.45335
+      }
+    },
+    {
+      "id": 2303236,
+      "name": "Begoro",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.37738,
+        "lat": 6.38706
+      }
+    },
+    {
+      "id": 2303258,
+      "name": "Bechem",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.02498,
+        "lat": 7.09034
+      }
+    },
+    {
+      "id": 2303287,
+      "name": "Bawku",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.24168,
+        "lat": 11.0616
+      }
+    },
+    {
+      "id": 2303611,
+      "name": "Axim",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -2.24046,
+        "lat": 4.86992
+      }
+    },
+    {
+      "id": 2303726,
+      "name": "Avelete",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.2846,
+        "lat": 6.33311
+      }
+    },
+    {
+      "id": 2304116,
+      "name": "Ashanti Region",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.5,
+        "lat": 6.75
+      }
+    },
+    {
+      "id": 2304220,
+      "name": "Asamankese",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.6635,
+        "lat": 5.86006
+      }
+    },
+    {
+      "id": 2304389,
+      "name": "Apam",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.73711,
+        "lat": 5.28483
+      }
+    },
+    {
+      "id": 2304548,
+      "name": "Anloga",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.89728,
+        "lat": 5.79473
+      }
+    },
+    {
+      "id": 2304928,
+      "name": "Akwechi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.58333,
+        "lat": 5.55
+      }
+    },
+    {
+      "id": 2304931,
+      "name": "Akwatia",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.80876,
+        "lat": 6.04024
+      }
+    },
+    {
+      "id": 2305027,
+      "name": "Akropong",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.08542,
+        "lat": 5.97462
+      }
+    },
+    {
+      "id": 2305164,
+      "name": "Akim Swedru",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.01636,
+        "lat": 5.8938
+      }
+    },
+    {
+      "id": 2305537,
+      "name": "Agogo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.08193,
+        "lat": 6.80004
+      }
+    },
+    {
+      "id": 2305894,
+      "name": "Adibo",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": 0.01983,
+        "lat": 9.3024
+      }
+    },
+    {
+      "id": 2306079,
+      "name": "Atsiaman",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.33333,
+        "lat": 5.7
+      }
+    },
+    {
+      "id": 2306104,
+      "name": "Accra",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.1969,
+        "lat": 5.55602
+      }
+    },
+    {
+      "id": 2306119,
+      "name": "Aburi",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -0.17754,
+        "lat": 5.84718
+      }
+    },
+    {
+      "id": 2306224,
+      "name": "Aboso",
+      "state": "",
+      "country": "GH",
+      "coord": {
+        "lon": -1.94732,
+        "lat": 5.3617
+      }
+    }
+  ]
+}

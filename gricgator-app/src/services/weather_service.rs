@@ -1,13 +1,12 @@
-use std::collections::HashMap;
-use tokio::io::AsyncReadExt;
 use std::error::Error;
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, serde::Deserialize)]
 pub struct Location {
-    cities:  Vec<City>,
+    cities: Vec<City>,
 }
 
 #[derive(Debug, Clone, serde::Deserialize)]
@@ -20,7 +19,7 @@ pub struct City {
     pub coordinates: PinPointLocation,
 }
 
-#[derive(Debug, Clone, Copy, serde::Deserialize)]
+#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
 pub struct PinPointLocation {
     #[serde(rename = "lat")]
     pub latitude: f32,
@@ -28,7 +27,8 @@ pub struct PinPointLocation {
     pub longitude: f32,
 }
 
-pub async fn fetch() -> Result<(), Box<dyn std::error::Error>> {
+
+pub async fn fetch() -> Result<(), Box<dyn Error>> {
 
     let response = reqwest::get("https://httpbin.org/status/418").await?;
     println!("{}", response.status());

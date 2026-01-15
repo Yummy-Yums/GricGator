@@ -1,6 +1,6 @@
-use std::collections::HashMap;
 use std::path::Path;
-use std::{env, error::Error, ffi::OsStr, fs::File, io, process};
+use std::{error::Error, fs::File};
+use std::collections::HashSet;
 
 struct Commodity {}
 
@@ -17,22 +17,14 @@ pub struct Record {
     commodity: String,
     commodity_id: String,
     unit: String,
-    priceflag: String,
-    pricetype: String,
+    #[serde(rename = "priceflag")]
+    price_flag: String,
+    #[serde(rename = "pricetype")]
+    price_type: String,
     currency: String,
     price: String,
-    usdprice: String,
-}
-
-fn example() -> Result<(), Box<dyn Error>> {
-    let mut rdr = csv::Reader::from_reader(io::stdin());
-
-    for result in rdr.deserialize() {
-        let record: Record = result?;
-        println!("{:?}", record)
-    }
-
-    Ok(())
+    #[serde(rename = "usdprice")]
+    usd_price: String,
 }
 
 pub fn load_market_price_data(path: &Path) -> Result<Vec<Record>, Box<dyn Error>> {
@@ -44,6 +36,17 @@ pub fn load_market_price_data(path: &Path) -> Result<Vec<Record>, Box<dyn Error>
     for result in rdr.deserialize() {
         let record: Record = result?;
         market_price_data.push(record);
+    }
+
+    let mut set: HashSet<&String> = HashSet::new();
+    let _ = market_price_data
+        .iter()
+        .for_each(|record| {
+            set.insert(&record.category);
+        });
+
+    for a in set {
+        println!("== {}", a);
     }
 
     Ok(market_price_data)

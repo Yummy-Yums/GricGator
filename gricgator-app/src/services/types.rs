@@ -1,50 +1,73 @@
 use std::cmp::Ordering;
 use serde::{Deserialize, Serialize};
-use crate::services::weather_service::PinPointLocation;
+
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct GetCurrentWeatherDataRequest {
-    #[serde(rename = "appid")]
-    app_id: String,
-    #[serde(flatten)]
-    pinpoint_location: PinPointLocation,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-pub struct GetCurrentWeatherDataRequest2 {
-    pub(crate) key: String,
+    pub  key: String,
     #[serde(rename = "q")]
-    pub(crate) query: String,
-    pub(crate) aqi: String,
-}
-
-
-#[derive(Debug, Deserialize, Serialize)]
-pub struct GetCurrentWeatherDataResponse {
-    dt: u32,
-    weather: Vec<WeatherData>,
-    main: Main,
-    wind: WindData,
-    clouds: serde_json::Map<String, serde_json::Value>,
+    pub  query: String,
+    pub  aqi: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct Main {
-    temperature: f32,
-    feels_like: f32,
-    temp_min: f32,
-    temp_max: f32,
-    pressure: f32,
-    humidity: f32,
+pub struct WeatherCondition {
+    text: String,
+    icon: String,
+    code: i16
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WeatherData {
-    id: i16,
-    main: String,
-    description: String,
-    icon: String,
+    temp_c: f32,
+    is_day: i8,
+    #[serde(rename = "feelslike_c")]
+    feels_like: f32,
+    #[serde(rename = "windchill_c")]
+    wind_chill: f32,
+    condition: WeatherCondition,
+    wind_mph: f32,
+    pub(crate) humidity: f32,
+    #[serde(rename = "precip_mm")]
+    precipitation: f32,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Day {
+    #[serde(rename = "maxtemp_c")]
+    max_temp_in_celsius: f32,
+    #[serde(rename = "mintemp_c")]
+    min_temp_in_celsius: f32,
+    #[serde(rename = "avgtemp_c")]
+    avg_temp_c: f32,
+    #[serde(rename = "maxwind_mph")]
+    max_wind_mph: f32,
+    #[serde(rename = "totalprecip_mm")]
+    total_precipitation: f32,
+    #[serde(rename = "avghumidity")]
+    average_humidity: f32,
+
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ForecastDay {
+    date: String,
+    date_epoch: String,
+    day: Day,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Forecast {
+    forecastday: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct WeatherApiResponse {
+    location: serde_json::Value,
+    pub current: WeatherData,
+    forecast: Forecast,
+}
+
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WindData {
@@ -89,20 +112,43 @@ pub struct Record {
     pub date: String,
     pub region: String,
     assembly: String,
-    pub(crate) market: String,
+    pub market: String,
     market_id: i16,
     latitude: f32,
     longitude: f32,
     category: String,
-    pub(crate) commodity: String,
+    pub commodity: String,
     commodity_id: String,
-    pub(crate) unit: String,
+    pub unit: String,
     #[serde(rename = "priceflag")]
     price_flag: String,
     #[serde(rename = "pricetype")]
     price_type: String,
-    pub(crate) currency: String,
-    pub(crate) price: String,
+    pub currency: String,
+    pub price: String,
     #[serde(rename = "usdprice")]
     usd_price: String,
+}
+
+#[derive(Debug, serde::Deserialize)]
+pub struct Location {
+    pub cities: Vec<City>,
+}
+
+#[derive(Debug, Clone, serde::Deserialize)]
+pub struct City {
+    pub id: u32,
+    pub name: String,
+    pub state: String,
+    pub country: String,
+    #[serde(rename = "coord")]
+    pub coordinates: PinPointLocation,
+}
+
+#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
+pub struct PinPointLocation {
+    #[serde(rename = "lat")]
+    pub latitude: f32,
+    #[serde(rename = "lon")]
+    pub longitude: f32,
 }

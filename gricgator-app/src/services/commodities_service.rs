@@ -7,10 +7,10 @@ use crate::services::types::*;
 
 const PATH: &str = "./src/wfp_food_prices_gha.csv";
 
-pub fn load_market_price_data(path: &Path) -> Result<Vec<Record>, Box<dyn Error>> {
+pub fn load_market_price_data() -> Result<Vec<Record>, Box<dyn Error>> {
     let mut market_price_data: Vec<Record> = Vec::new();
 
-    let file = File::open(path)?;
+    let file = File::open(PATH)?;
     let mut rdr = csv::Reader::from_reader(file);
 
     for result in rdr.deserialize() {

@@ -1,44 +1,59 @@
-use serde::{Deserialize, Serialize};
-use crate::API_KEY;
 use crate::services::types::*;
-use crate::services::weather_service::PinPointLocation;
+use crate::API_KEY;
 
-static BASE_URL: &'static str = "https://api.weatherapi.com/v1/current.json";
+static BASE_URL: &'static str = "https://api.weatherapi.com/v1";
 
-fn default_aqi() -> String {
-    "no".to_string()
-}
-
-pub async fn get_weather_forecast_of_a_place(
+pub async fn get_current_weather_of_a_place(
     place: &str,
     pinpoint_location: PinPointLocation
 ) -> Result<(), reqwest::Error> {
 
     let key = API_KEY.get().unwrap().to_string();
-    println!("key {}", key);
 
-    println!("getting weather forecast of {}", place);
+    let query_params = [("key", key), ("query", place.to_string()), ("aqi", "no".to_string())];
 
-    let request_data = GetCurrentWeatherDataRequest2 {
-        key,
-        query: "Accra".to_string(),
-        aqi: default_aqi()
-    };
+    println!("getting weather of {}", place);
 
     let response = reqwest::Client::new()
-        .post(BASE_URL)
-        .json(&request_data)
+        .get(format!("{}/current.json", BASE_URL))
+        .query(&query_params)
         .send()
         .await?;
 
     let response_text = response.text().await?;
-    println!("Raw API response: {}", response_text);
+    let weather_data: WeatherApiResponse = serde_json::from_str(&response_text).unwrap();
+    println!("Raw API response: {:?}", weather_data.current);
 
-        // .json::<GetCurrentWeatherDataResponse>()
-        // .await?;
 
     Ok(())
 }
+
+
+pub async fn get_one_day_weather_forecast_of_a_place(
+    place: &str,
+    pinpoint_location: PinPointLocation
+) -> Result<(), reqwest::Error> {
+    let key = API_KEY.get().unwrap().to_string();
+
+    let query_params = 
+        [("key", key),("query", place.to_string()), ("days", 1.to_string()),("aqi", "no".to_string()), ("alerts", "no".to_string())];
+
+    println!("getting weather forecast of {}", place);
+
+    let response = reqwest::Client::new()
+        .get(format!("{}/forecast.json", BASE_URL))
+        .query(&query_params)
+        .send()
+        .await?;
+
+    let response_text = response.text().await?;
+    let weather_data: WeatherApiResponse = serde_json::from_str(&response_text).unwrap();
+    println!("Raw API response: {:?}", weather_data.current);
+
+
+    Ok(())
+}
+
 
 
 

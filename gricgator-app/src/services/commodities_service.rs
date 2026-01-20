@@ -1,25 +1,9 @@
-use std::path::Path;
-use std::{error::Error, fs::File};
-use std::cmp::Ordering;
-use chrono::{Datelike, NaiveDate};
-use crate::get_market_data;
+use crate::services::get_market_data;
 use crate::services::types::*;
+use chrono::{Datelike, NaiveDate};
+use std::cmp::Ordering;
+use std::error::Error;
 
-const PATH: &str = "./src/wfp_food_prices_gha.csv";
-
-pub fn load_market_price_data() -> Result<Vec<Record>, Box<dyn Error>> {
-    let mut market_price_data: Vec<Record> = Vec::new();
-
-    let file = File::open(PATH)?;
-    let mut rdr = csv::Reader::from_reader(file);
-
-    for result in rdr.deserialize() {
-        let record: Record = result?;
-        market_price_data.push(record);
-    }
-
-    Ok(market_price_data)
-}
 
 pub fn get_price_of_commodity_across_all_markets(
     commodity: &str

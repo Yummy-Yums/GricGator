@@ -2,72 +2,91 @@ use std::cmp::Ordering;
 use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct GetCurrentWeatherDataRequest {
-    pub  key: String,
-    #[serde(rename = "q")]
-    pub  query: String,
-    pub  aqi: String,
-}
+
+
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WeatherCondition {
-    text: String,
+    pub text: String,
     icon: String,
     code: i16
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct WeatherData {
-    temp_c: f32,
-    is_day: i8,
-    #[serde(rename = "feelslike_c")]
-    feels_like: f32,
-    #[serde(rename = "windchill_c")]
-    wind_chill: f32,
-    condition: WeatherCondition,
-    wind_mph: f32,
-    pub(crate) humidity: f32,
-    #[serde(rename = "precip_mm")]
-    precipitation: f32,
+pub struct Hour {
+    pub time: String,
+    pub temp_c: f32,
+    pub condition: WeatherCondition,
+    pub will_it_rain: i8,
+    pub chance_of_rain: i16,
+    pub humidity: i16,
+    #[serde(rename = "dewpoint_c")]
+    pub dew_point: f32,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct AstrologicalData {
+    pub sunrise: String,
+    pub sunset: String,
+    pub moonrise: String,
+    pub moonset: String,
+    pub moon_phase: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Day {
     #[serde(rename = "maxtemp_c")]
-    max_temp_in_celsius: f32,
+    pub max_temp_in_celsius: f32,
     #[serde(rename = "mintemp_c")]
-    min_temp_in_celsius: f32,
+    pub min_temp_in_celsius: f32,
     #[serde(rename = "avgtemp_c")]
-    avg_temp_c: f32,
+    pub avg_temp_c: f32,
     #[serde(rename = "maxwind_mph")]
-    max_wind_mph: f32,
+    pub max_wind_mph: f32,
     #[serde(rename = "totalprecip_mm")]
-    total_precipitation: f32,
+    pub total_precipitation: f32,
     #[serde(rename = "avghumidity")]
-    average_humidity: f32,
-
+    pub average_humidity: f32,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ForecastDay {
-    date: String,
-    date_epoch: String,
-    day: Day,
+    pub date: String,
+    pub day: Day,
+    pub astro: AstrologicalData,
+    pub hour: Vec<Hour>
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Forecast {
-    forecastday: Vec<String>,
+    #[serde(rename = "forecastday")]
+    pub forecast_day: Vec<ForecastDay>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct WeatherForecastResponse {
+    pub forecast: Forecast,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct WeatherData {
+    pub temp_c: String,
+    pub is_day: bool,
+    #[serde(rename = "feelslike_c")]
+    pub feels_like: f32,
+    #[serde(rename = "windchill_c")]
+    pub wind_chill: f32,
+    pub condition: WeatherCondition,
+    pub wind_mph: f32,
+    pub humidity: f32,
+    #[serde(rename = "precip_mm")]
+    pub precipitation: f32,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct WeatherApiResponse {
-    location: serde_json::Value,
-    pub current: WeatherData,
-    forecast: Forecast,
+    pub current: WeatherData
 }
-
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WindData {

@@ -1,36 +1,65 @@
 use std::collections::HashMap;
-use super::types::*;
 use std::error::Error;
-use std::fs::File;
-use std::io::BufReader;
-use std::path::Path;
+use crate::services::{
+    get_avail_locations_data,
+    get_current_weather_of_a_place,
+    get_one_day_weather_forecast_of_a_place
+};
+use crate::services::types::{City, WeatherApiResponse, WeatherForecastResponse};
 
+pub async fn get_current_weather(city_name: &str) -> Result<(), Box<dyn Error>> {
 
-pub fn load_location_store() -> Result<HashMap<String, City>, Box<dyn Error>> {
-    let mut store = HashMap::new();
-    let cities_data = load_locations_data_from_file()?;
+    let locations: &HashMap<String, City> = get_avail_locations_data();
 
-    cities_data.iter().for_each(|city| {
-        store.insert(city.name.clone(), city.clone());
-    });
+    let result = locations
+        .keys()
+        .find(|name| { city_name == *name});
 
-    Ok(store)
-}
+    match result {
+        Some(location) => {
+            let current_weather: WeatherApiResponse = get_current_weather_of_a_place(location).await?;
 
-pub async fn get_weather_data_of_city() -> Result<(), Box<dyn Error>> {
-    // look in the location stor, get the data and pass it in the api function, format it properly
+            let response = format!("\
+                The weather condition for today is {} and the temperature is {}°C. It will feel like {}°C, \
+                 The wind chill is {} and the wind will move at {}mph, humidity is {} and precipitation is {}",
+                    current_weather.current.condition.text,
+                    current_weather.current.temp_c,
+                    current_weather.current.feels_like,
+                    current_weather.current.wind_chill,
+                    current_weather.current.wind_mph,
+                    current_weather.current.humidity,
+                    current_weather.current.precipitation,
+            );
+
+            println!("{}", response);
+        },
+        None => Err("Could not find city location for city".to_string())?,
+    }
+
     Ok(())
 }
 
-fn load_locations_data_from_file() -> Result<Vec<City>, Box<dyn Error>> {
+pub async fn get_weather_forecast(city_name: &str) -> Result<(), Box<dyn Error>> {
 
-    let path = Path::new( "./src/cities.json");
+    let locations: &HashMap<String, City> = get_avail_locations_data();
 
-    let file = File::open(path)?;
-    let reader = BufReader::new(file);
-    let read_data: Location = serde_json::from_reader(reader)?;
+    let result = locations
+        .keys()
+        .find(|name| { city_name == *name});
 
-    let cities_data = read_data.cities;
+    match result {
+        Some(location) => {
+            let current_weather_forecast: WeatherForecastResponse = get_one_day_weather_forecast_of_a_place(location).await?;
+            println!("{:?}", current_weather_forecast.forecast.forecast_day.first().unwrap().day);
 
-    Ok(cities_data)
+            let response = format!(""
+
+            );
+
+            println!("{}", response);
+        },
+        None => Err("Could not find city location for city".to_string())?,
+    }
+
+    Ok(())
 }

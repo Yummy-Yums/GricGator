@@ -2,7 +2,7 @@
 name = "gricgator-app"
 version = "0.1.0"
 edition = "2024"
-
+authors = ["Elias Derby"]
 
 [dependencies]
 csv = { version = "1.4.0"}
@@ -12,3 +12,4 @@ serde = { version = "1.0.228", features = ["derive"] }
 serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
 tokio = { version = "1", features = ["full"] }
 chrono = "0.4"
+clap = { version = "4.5.54", features = ["derive"] }

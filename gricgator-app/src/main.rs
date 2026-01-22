@@ -1,32 +1,7 @@
-mod services;
-mod cli;
-use std::sync::OnceLock;
-
-use dotenv::dotenv;
-use services::{
-    get_avail_locations_data,
-    get_current_weather_of_a_place,
-    get_current_weather,
-    get_best_market_prices_of_commodity_in_a_region
-};
-use crate::services::get_weather_forecast;
-
-static API_KEY: OnceLock<String> = OnceLock::new();
-
-
-pub fn init(){
-    dotenv().ok();
-
-    API_KEY.set(
-        std::env::var("API_KEY")
-            .unwrap_or("".to_string())
-    ).expect("Could not set API_KEY");
-}
+use gricgator_app::{get_avail_locations_data, list_categories_of_commodities};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-
-    init();
 
     let locations_data = get_avail_locations_data();
 
@@ -34,9 +9,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //         println!("Name of {} with details {:#?}", name, city);
     // });
 
-    let res2 = get_best_market_prices_of_commodity_in_a_region("Cassava", "central")?;
-    let _ = get_weather_forecast("Accra").await?;
+    // let res2 = get_best_market_prices_of_commodity_in_a_region("Cassava", "central")?;
+    // let _ = get_weather_forecast("Accra").await?;
     // let _ = get_current_weather("Accra").await?;
+    let _ = list_categories_of_commodities();
 
 
     Ok(())

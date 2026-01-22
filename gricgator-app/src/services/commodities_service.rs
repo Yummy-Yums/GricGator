@@ -2,8 +2,8 @@ use crate::services::get_market_data;
 use crate::services::types::*;
 use chrono::{Datelike, NaiveDate};
 use std::cmp::Ordering;
+use std::collections::HashSet;
 use std::error::Error;
-
 
 pub fn get_price_of_commodity_across_all_markets(
     commodity: &str
@@ -88,14 +88,60 @@ pub fn compare_best_market_prices_of_commodity_btn_markets(
     Ok(response)
 }
 
-pub fn get_commodities_in_a_category(category: &str) -> Vec<CommodityPricing> {
-    // use market data
-    // let mut set: HashSet<&String> = HashSet::new();
-    // let _ = market_price_data
-    //     .iter()
-    //     .for_each(|record| {
-    //         set.insert(&record.category);
-    //     });
-    todo!()
+pub fn get_commodities_in_a_category(category: &str) -> Option<Vec<Commodity>> {
+    let does_category_exists = list_categories_of_commodities().contains(&category.to_string());
+    let market_data = get_market_data();
 
+    if !does_category_exists {
+        return None
+    }
+
+    let mut result = market_data
+        .iter()
+        .filter(|record| record.category == category)
+        .map(|record| {
+            Commodity {
+                id: record.market_id as i8,
+                name: record.commodity.clone(),
+                category: record.category.clone(),
+                unit: record.unit.clone(),
+                price: record.price.clone(),
+                price_type: record.price_type.clone(),
+                currency: record.currency.clone(),
+            }
+        })
+        .collect::<Vec<Commodity>>();
+
+    result.sort_by(|a, b| b.name.cmp(&a.name));
+    result.dedup_by(|a, b| a.name == b.name);
+
+    Some(result)
 }
+
+pub fn list_all_commodities() -> HashSet<String> {
+    let market_data = get_market_data();
+    let mut commodities = HashSet::new();
+
+    market_data
+        .iter()
+        .filter(|record| record.date.contains("2023"))
+        .for_each(|record| {
+            commodities.insert(record.commodity.clone());
+        });
+
+    commodities
+}
+
+pub fn list_categories_of_commodities() -> HashSet<String> {
+    let market_data = get_market_data();
+    let mut categories = HashSet::new();
+
+    market_data
+        .iter()
+        .filter(|record| record.date.contains("2023"))
+        .for_each(|record| {
+            categories.insert(record.category.clone());
+        });
+    categories
+}
+

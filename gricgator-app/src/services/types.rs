@@ -1,10 +1,6 @@
 use std::cmp::Ordering;
 use serde::{Deserialize, Serialize};
 
-
-
-
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WeatherCondition {
     pub text: String,
@@ -70,8 +66,8 @@ pub struct WeatherForecastResponse {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WeatherData {
-    pub temp_c: String,
-    pub is_day: bool,
+    pub temp_c: f32,
+    pub is_day: i8,
     #[serde(rename = "feelslike_c")]
     pub feels_like: f32,
     #[serde(rename = "windchill_c")]
@@ -96,13 +92,14 @@ pub struct WindData {
 }
 
 #[derive(Debug, Clone)]
-struct Commodity {
-    name: String,
-    price: String,
-    category: String,
-    unit: String,
-    price_type: String,
-    currency: String,
+pub struct Commodity {
+    pub id: i8,
+    pub name: String,
+    pub price: String,
+    pub category: String,
+    pub unit: String,
+    pub price_type: String,
+    pub currency: String,
 }
 
 #[derive(Debug, Clone)]
@@ -119,7 +116,6 @@ pub struct CommodityPricing {
 impl Eq for CommodityPricing {}
 
 impl Ord for CommodityPricing {
-
     fn cmp(&self, other: &Self) -> Ordering {
         self.price.partial_cmp(&other.price).unwrap()
     }
@@ -132,17 +128,17 @@ pub struct Record {
     pub region: String,
     assembly: String,
     pub market: String,
-    market_id: i16,
+    pub market_id: i16,
     latitude: f32,
     longitude: f32,
-    category: String,
+    pub category: String,
     pub commodity: String,
     commodity_id: String,
     pub unit: String,
     #[serde(rename = "priceflag")]
     price_flag: String,
     #[serde(rename = "pricetype")]
-    price_type: String,
+    pub price_type: String,
     pub currency: String,
     pub price: String,
     #[serde(rename = "usdprice")]

@@ -13,7 +13,7 @@ pub fn get_price_of_commodity_across_all_markets(
 
     market_data
         .iter()
-        .filter(|record| record.commodity == commodity)
+        .filter(|record| record.commodity.to_lowercase() == commodity.to_lowercase())
         .filter(|record| { record.date.parse::<NaiveDate>().unwrap().year() == 2023 })
         .for_each(|record|
             {
@@ -40,7 +40,10 @@ pub fn get_best_market_prices_of_commodity(
 ) -> Result<Vec<CommodityPricing>, Box<dyn Error>> {
 
     let prices = get_price_of_commodity_across_all_markets(commodity)?;
-    let response = prices.into_iter().take(10).collect();
+    let response = prices
+        .into_iter()
+        .take(10)
+        .collect();
 
     Ok(response)
 }

@@ -1,6 +1,6 @@
 use std::fmt::format;
 use clap::{Parser, Subcommand};
-use gricgator_app::{get_commodities_in_a_category, init_api_key, list_all_commodities, list_categories_of_commodities};
+use gricgator_app::{get_best_market_prices_of_commodity, get_best_market_prices_of_commodity_in_a_region, get_commodities_in_a_category, init_api_key, list_all_commodities, list_categories_of_commodities};
 
 const HEADER: &str = "\
 ______________________
@@ -24,7 +24,7 @@ enum Commands {
         weather_cmd: WeatherCommands
     },
     /// Pricing Subcommand to Pricing functionality
-    CommodityPricing {
+    Pricing {
         #[clap(subcommand)]
         pricing_cmd: CommodityPricingCommands
     },
@@ -85,7 +85,7 @@ enum CommodityPricingCommands {
         #[clap(long)]
         commodity: String,
         #[clap(long)]
-        regional: String,
+        region: String,
     },
     /// Get price of commodity across all markets
     GetPriceAcrossAllMarkets {
@@ -132,20 +132,92 @@ fn main() {
                     println!("Get Evening Weather Forecast {:?}", location);
                 }
             },
-        Commands::CommodityPricing {pricing_cmd} =>
+        Commands::Pricing {pricing_cmd} =>
             match pricing_cmd {
-
                 CommodityPricingCommands::GetBestMarketPrice { commodity } => {
                     println!("Get best market price of commodities");
+
+                    let result = get_best_market_prices_of_commodity(commodity.as_str());
+
+                    match result {
+                        Ok(result) => {
+                            if result.is_empty() {
+                                println!("No commodity pricing found for {}", commodity);
+
+                                let error_msg = format!(
+                                    "No such commodity as '{}'\n\
+                                \n\
+                                Please:\n\
+                                \n\
+                                • Run 'list-commodities' to see available options\n\
+                                • Check your spelling\n\
+                                • Use tab completion if available",
+                                    commodity
+                                );
+                                println!("{error_msg}");
+                            } else {
+                                println!("Top Best market price for {} {:?}", commodity, result);
+
+                                result
+                                    .iter()
+                                    .for_each(|commodity_pricing| {
+                                        println!("{}", commodity_pricing);
+                                        println!("=================\n")
+                                    })
+                            }
+                        },
+                        Err(error) => {
+                            println!("Error getting best market price: {:?}", error);
+                        }
+                    }
                 }
                 CommodityPricingCommands::GetBestRegionalMarketPrice {
                     commodity,
-                    regional
+                    region
                 } => {
-                    println!("Get best regional market price of commodities");
+                    println!("Get best  market price of commodities in {} region...\n", region);
+
+                    let result = get_best_market_prices_of_commodity_in_a_region(
+                        commodity.as_str(),
+                        region.as_str()
+                    );
+
+                    match result {
+                        Ok(result) => {
+                            if result.is_empty() {
+
+                                let error_msg = format!(
+                                    "No such commodity as '{}' or region '{}'\n\
+                                \n\
+                                Please:\n\
+                                \n\
+                                • Run 'list-commodities' to see available options\n\
+                                • Check your spelling whether regions are correct\n\
+                                • Use tab completion if available",
+                                    commodity,
+                                    region
+                                );
+                                println!("{error_msg}");
+                            } else {
+
+                                println!("Top Best market price for {} in {} region\n", commodity, region);
+
+                                result
+                                    .iter()
+                                    .for_each(|commodity_pricing| {
+                                        println!("{}", commodity_pricing);
+                                        println!("=================\n")
+                                    })
+                            }
+                        },
+                        Err(error) => {
+                            println!("Error getting best market price: {:?}", error);
+                        }
+                    }
                 }
                 CommodityPricingCommands::GetPriceAcrossAllMarkets { commodity } => {
                     println!("Get best price of commodity across all best markets");
+
                 }
             },
         Commands::Commodity { commodity_cmd } =>
@@ -161,7 +233,6 @@ fn main() {
                         .for_each(|commodity| {
                             println!("|{:width$}|", commodity, width = max_len);
                             println!("|{:width$}|", "_".repeat(max_len), width = max_len);
-
                         });
                 },
                 CommodityCommands::ListCategories => {
@@ -205,7 +276,7 @@ fn main() {
                                 • Run 'list-categories' to see available options\n\
                                 • Check your spelling\n\
                                 • Use tab completion if available",
-                                                            category
+                                category
                             );
                             println!("{error_msg}");
                         }

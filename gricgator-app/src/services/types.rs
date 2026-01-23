@@ -1,4 +1,6 @@
 use std::cmp::Ordering;
+
+use std::fmt::{Formatter, Display, Result as FmtResult};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -111,6 +113,15 @@ pub struct CommodityPricing {
     pub market: String,
     pub region: String,
     pub unit: String,
+}
+
+impl Display for CommodityPricing {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        let msg = format!("\
+        The price per {} is {}{} in the {} market
+        ", self.unit, self.currency, self.price, self.market);
+        write!(f, "{}", msg)
+    }
 }
 
 impl Eq for CommodityPricing {}

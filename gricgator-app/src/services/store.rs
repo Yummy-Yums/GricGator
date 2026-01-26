@@ -67,7 +67,7 @@ fn load_location_store() -> Result<HashMap<String, City>, Box<dyn Error>> {
     cities_data
         .iter()
         .for_each(|city| {
-        store.insert(city.name.clone(), city.clone());
+        store.insert(city.name.to_lowercase().clone(), city.clone());
         });
 
     Ok(store)

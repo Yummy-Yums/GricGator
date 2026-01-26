@@ -1,6 +1,6 @@
 use std::fmt::format;
 use clap::{Parser, Subcommand};
-use gricgator_app::{get_avail_locations_data, get_best_market_prices_of_commodity, get_best_market_prices_of_commodity_in_a_region, get_commodities_in_a_category, init_api_key, list_all_commodities, list_categories_of_commodities};
+use gricgator_app::*;
 
 const HEADER: &str = "\
 ______________________
@@ -74,7 +74,6 @@ enum CommodityCommands {
 
 #[derive(Subcommand)]
 enum CommodityPricingCommands {
-
     /// get best market price of commodity
     GetBestMarketPrice {
         #[clap(long)]
@@ -102,7 +101,8 @@ _______________________
 ", title)
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
 
     println!("{}", HEADER);
 
@@ -111,9 +111,9 @@ fn main() {
     let cli = Cli::parse();
 
     match cli.commands {
-        Commands::Weather {weather_cmd} =>
+        Commands::Weather { weather_cmd} =>
             match weather_cmd {
-                WeatherCommands::ListAvailableLocations=> {
+                WeatherCommands::ListAvailableLocations => {
                     println!("Getting Available locations\n");
 
                     let available_locations = get_avail_locations_data();
@@ -125,13 +125,41 @@ fn main() {
                             println!("{:width$}", key, width=max_len);
                             println!("{}", "=".repeat(max_len));
                         });
-
                 },
                 WeatherCommands::GetCurrentWeather(location) => {
-                    println!("Current Weather {:?}", location);
+
+                    let loc = &location.location.expect("No location specified");
+                    let is_city_available= is_city_or_location_available(loc);
+                    println!("Current Weather Of {:?}", loc);
+
+                    if is_city_available {
+                        println!("{}", "=".repeat(30));
+                        let get_current_weather = get_current_weather(loc).await;
+                        get_current_weather.unwrap()
+                    } else {
+                        let error_msg = format!(
+                            "City'{}' is not available \n\
+                                \n\
+                                Please:\n\
+                                \n\
+                                • Run 'list-available-locations' to see available options\n\
+                                • Check your spelling\n\
+                            ",
+                            loc
+                        );
+                        println!("{error_msg}");
+                    }
                 },
                 WeatherCommands::GetWeatherForecast(location) => {
-                    println!("Get Weather Forecast {:?}", location);
+                    println!("Get Weather Forecast {:?}", location.location);
+                    println!("{}", "=".repeat(30));
+
+                    let loc = &location.location.unwrap().to_lowercase();
+
+                     // let _ = get_weather_forecast(&loc.to_lowercase()).await;
+                     let _ = retry( || async {
+                          get_weather_forecast(&loc).await
+                     }, 3).await;
                 },
                 WeatherCommands::GetMorningWeatherForecast(location) => {
                     println!("Get Morning Weather Forecast {:?}", location);
@@ -149,7 +177,6 @@ fn main() {
                     println!("Get best market price of commodities");
 
                     let result = get_best_market_prices_of_commodity(commodity.as_str());
-
                     match result {
                         Ok(result) => {
                             if result.is_empty() {
@@ -162,7 +189,7 @@ fn main() {
                                 \n\
                                 • Run 'list-commodities' to see available options\n\
                                 • Check your spelling\n\
-                                • Use tab completion if available",
+                               ",
                                     commodity
                                 );
                                 println!("{error_msg}");
@@ -204,13 +231,12 @@ fn main() {
                                 \n\
                                 • Run 'list-commodities' to see available options\n\
                                 • Check your spelling whether regions are correct\n\
-                                • Use tab completion if available",
+                               ",
                                     commodity,
                                     region
                                 );
                                 println!("{error_msg}");
                             } else {
-
                                 println!("Top Best market price for {} in {} region\n", commodity, region);
 
                                 result
@@ -228,7 +254,6 @@ fn main() {
                 }
                 CommodityPricingCommands::GetPriceAcrossAllMarkets { commodity } => {
                     println!("Get best price of commodity across all best markets");
-
                 }
             },
         Commands::Commodity { commodity_cmd } =>
@@ -286,7 +311,7 @@ fn main() {
                                 \n\
                                 • Run 'list-categories' to see available options\n\
                                 • Check your spelling\n\
-                                • Use tab completion if available",
+                                ",
                                 category
                             );
                             println!("{error_msg}");

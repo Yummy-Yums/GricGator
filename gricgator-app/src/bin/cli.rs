@@ -1,6 +1,6 @@
 use std::fmt::format;
 use clap::{Parser, Subcommand};
-use gricgator_app::{get_best_market_prices_of_commodity, get_best_market_prices_of_commodity_in_a_region, get_commodities_in_a_category, init_api_key, list_all_commodities, list_categories_of_commodities};
+use gricgator_app::{get_avail_locations_data, get_best_market_prices_of_commodity, get_best_market_prices_of_commodity_in_a_region, get_commodities_in_a_category, init_api_key, list_all_commodities, list_categories_of_commodities};
 
 const HEADER: &str = "\
 ______________________
@@ -39,7 +39,7 @@ enum Commands {
 #[derive(Subcommand)]
 enum WeatherCommands {
     /// List Available Locations
-    ListAvailableLocations(CommonWeatherArgs),
+    ListAvailableLocations,
     /// Get Current Weather of a place
     GetCurrentWeather(CommonWeatherArgs),
     /// Get Weather Forecast for the day of a place
@@ -113,8 +113,19 @@ fn main() {
     match cli.commands {
         Commands::Weather {weather_cmd} =>
             match weather_cmd {
-                WeatherCommands::ListAvailableLocations(location) => {
-                    println!("Available locations: {:?}", location);
+                WeatherCommands::ListAvailableLocations=> {
+                    println!("Getting Available locations\n");
+
+                    let available_locations = get_avail_locations_data();
+                    let max_len = available_locations.iter().map(|s| s.0.len()).max().unwrap();
+
+                    available_locations
+                        .keys()
+                        .for_each(|key| {
+                            println!("{:width$}", key, width=max_len);
+                            println!("{}", "=".repeat(max_len));
+                        });
+
                 },
                 WeatherCommands::GetCurrentWeather(location) => {
                     println!("Current Weather {:?}", location);

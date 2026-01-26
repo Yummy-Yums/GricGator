@@ -17,7 +17,7 @@ pub fn get_market_data() -> &'static Vec<Record> {
     })
 }
 
-// hold on for now...cos if it's used once
+// hold on for now...cos if it's used once, it might not be needed
 pub fn get_commodity_data() -> &'static Vec<Record> {
     COMMODITY_DATA.get_or_init(|| {
         load_market_price_data().expect("Could not load market price data")
@@ -54,13 +54,21 @@ fn load_location_store() -> Result<HashMap<String, City>, Box<dyn Error>> {
     let reader = BufReader::new(file);
     let read_data: Location = serde_json::from_reader(reader)?;
 
-    let cities_data = read_data.cities;
+    let cities_data: Vec<City> = read_data
+        .cities
+        .into_iter()
+        .filter(|er| {
+            !er.name.to_lowercase().contains("region")
+        })
+        .collect();
 
     let mut store = HashMap::new();
 
-    cities_data.iter().for_each(|city| {
+    cities_data
+        .iter()
+        .for_each(|city| {
         store.insert(city.name.clone(), city.clone());
-    });
+        });
 
     Ok(store)
 }

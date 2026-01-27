@@ -22,7 +22,6 @@ pub async fn get_current_weather_of_a_place(
     place: &str,
 ) -> Result<WeatherApiResponse, reqwest::Error> {
 
-
     let key = get_api_key();
     let query_params = [
         ("key", key),

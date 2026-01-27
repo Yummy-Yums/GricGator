@@ -46,10 +46,12 @@ enum WeatherCommands {
     GetWeatherForecast(CommonWeatherArgs),
     /// Morning (6am - 12pm) Weather Forecast of a place
     GetMorningWeatherForecast(CommonWeatherArgs),
-    /// Afternoon (12pm - 5pm) Weather Forecast of a place
+    /// Afternoon (12pm - 4pm) Weather Forecast of a place
     GetAfternoonWeatherForecast(CommonWeatherArgs),
-    /// Evening (5pm - 8pm) Weather Forecast of a place
+    /// Evening (4pm - 8pm) Weather Forecast of a place
     GetEveningWeatherForecast(CommonWeatherArgs),
+    /// Night (8pm - 12pm) Weather Forecast of a place
+    GetNightWeatherForecast(CommonWeatherArgs),
 }
 
 #[derive(clap::Args)]
@@ -134,8 +136,12 @@ async fn main() {
 
                     if is_city_available {
                         println!("{}", "=".repeat(30));
-                        let get_current_weather = get_current_weather(loc).await;
-                        get_current_weather.unwrap()
+
+                        // add retry block here
+                        let _ = retry(|| async {
+                            get_current_weather(loc).await
+                        }, 3).await;
+
                     } else {
                         let error_msg = format!(
                             "City'{}' is not available \n\
@@ -156,19 +162,37 @@ async fn main() {
 
                     let loc = &location.location.unwrap().to_lowercase();
 
-                     // let _ = get_weather_forecast(&loc.to_lowercase()).await;
                      let _ = retry( || async {
                           get_weather_forecast(&loc).await
                      }, 3).await;
                 },
                 WeatherCommands::GetMorningWeatherForecast(location) => {
-                    println!("Get Morning Weather Forecast {:?}", location);
+                    let loc = location.location.expect("No location specified");
+                    println!("Get Morning Weather Forecast {:?}", loc);
+
+                    let response = get_time_period_forecast_of_day(&*loc, "Morning").await.unwrap();
+                    response.iter().for_each(|er| { println!("{:?}", er)})
                 },
                 WeatherCommands::GetAfternoonWeatherForecast(location) => {
-                    println!("Get Afternoon Weather Forecast {:?}", location);
+                    let loc = location.location.expect("No location specified");
+                    println!("Get Afternoon Weather Forecast {:?}", loc);
+
+                    let response = get_time_period_forecast_of_day(&*loc, "Afternoon").await.unwrap();
+                    response.iter().for_each(|er| { println!("{:?}", er)})
                 },
                 WeatherCommands::GetEveningWeatherForecast(location) => {
-                    println!("Get Evening Weather Forecast {:?}", location);
+                    let loc = location.location.expect("No location specified");
+                    println!("Get Evening Weather Forecast {:?}", loc);
+
+                    let response = get_time_period_forecast_of_day(&*loc, "Evening").await.unwrap();
+                    response.iter().for_each(|er| { println!("{:?}", er)})
+                },
+                WeatherCommands::GetNightWeatherForecast(location) => {
+                    let loc = location.location.expect("No location specified");
+                    println!("Get Night Weather Forecast {:?}", loc);
+
+                    let response = get_time_period_forecast_of_day(&*loc, "Night").await.expect("Invalid Time period");
+                    response.iter().for_each(|er| { println!("{:?}", er)})
                 }
             },
         Commands::Pricing {pricing_cmd} =>
@@ -184,11 +208,11 @@ async fn main() {
 
                                 let error_msg = format!(
                                     "No such commodity as '{}'\n\
-                                \n\
-                                Please:\n\
-                                \n\
-                                • Run 'list-commodities' to see available options\n\
-                                • Check your spelling\n\
+                                    \n\
+                                    Please:\n\
+                                    \n\
+                                    • Run 'list-commodities' to see available options\n\
+                                    • Check your spelling\n\
                                ",
                                     commodity
                                 );

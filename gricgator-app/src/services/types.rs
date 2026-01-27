@@ -3,14 +3,14 @@ use std::cmp::Ordering;
 use std::fmt::{Formatter, Display, Result as FmtResult};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct WeatherCondition {
     pub text: String,
     icon: String,
     code: i16
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Hour {
     pub time: String,
     pub temp_c: f32,
@@ -22,7 +22,13 @@ pub struct Hour {
     pub dew_point: f32,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+// have an impl block for hour to properly format the code here
+
+impl Hour {
+    
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct AstrologicalData {
     pub sunrise: String,
     pub sunset: String,
@@ -31,7 +37,7 @@ pub struct AstrologicalData {
     pub moon_phase: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Day {
     #[serde(rename = "maxtemp_c")]
     pub max_temp_in_celsius: f32,
@@ -47,7 +53,7 @@ pub struct Day {
     pub average_humidity: f32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct ForecastDay {
     pub date: String,
     pub day: Day,

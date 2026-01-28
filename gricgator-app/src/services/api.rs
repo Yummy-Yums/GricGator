@@ -58,6 +58,7 @@ pub async fn get_one_day_weather_forecast_of_a_place(
     ];
 
     println!("getting one day weather forecast of {}", place);
+    println!("{}", "=".repeat(70));
 
     let response = reqwest::Client::new()
         .get(format!("{}/forecast.json", BASE_URL))

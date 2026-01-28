@@ -23,9 +23,18 @@ pub struct Hour {
 }
 
 // have an impl block for hour to properly format the code here
-
-impl Hour {
-    
+impl Display for Hour {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        let time = self.time.split(' ').collect::<Vec<&str>>()[1];
+        let msg = format!(
+            "Hourly Forecast at {}: the temperature is {}, the condition is {}. Humidity is {}",
+            time,
+            self.temp_c,
+            self.condition.text.trim(),
+            self.humidity
+        );
+        write!(f, "{}", msg)
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]

@@ -88,11 +88,6 @@ enum CommodityPricingCommands {
         #[clap(long)]
         region: String,
     },
-    /// Get price of commodity across all markets
-    GetPriceAcrossAllMarkets {
-        #[clap(long)]
-        commodity: String,
-    }
 }
 
 fn formatted_header(title: &str) -> String {
@@ -171,28 +166,28 @@ async fn main() {
                     println!("Get Morning Weather Forecast {:?}", loc);
 
                     let response = get_time_period_forecast_of_day(&*loc, "Morning").await.unwrap();
-                    response.iter().for_each(|er| { println!("{:?}", er)})
+                    response.iter().for_each(|hour| { println!("{:?}",hour)})
                 },
                 WeatherCommands::GetAfternoonWeatherForecast(location) => {
                     let loc = location.location.expect("No location specified");
                     println!("Get Afternoon Weather Forecast {:?}", loc);
 
                     let response = get_time_period_forecast_of_day(&*loc, "Afternoon").await.unwrap();
-                    response.iter().for_each(|er| { println!("{:?}", er)})
+                    response.iter().for_each(|hour| { println!("{}", *hour)})
                 },
                 WeatherCommands::GetEveningWeatherForecast(location) => {
                     let loc = location.location.expect("No location specified");
-                    println!("Get Evening Weather Forecast {:?}", loc);
+                    println!("Get Evening Weather Forecast {}", loc);
 
                     let response = get_time_period_forecast_of_day(&*loc, "Evening").await.unwrap();
-                    response.iter().for_each(|er| { println!("{:?}", er)})
+                    response.iter().for_each(|hour| { println!("{}", *hour)})
                 },
                 WeatherCommands::GetNightWeatherForecast(location) => {
                     let loc = location.location.expect("No location specified");
-                    println!("Get Night Weather Forecast {:?}", loc);
+                    println!("Get Night Weather Forecast {}", loc);
 
                     let response = get_time_period_forecast_of_day(&*loc, "Night").await.expect("Invalid Time period");
-                    response.iter().for_each(|er| { println!("{:?}", er)})
+                    response.iter().for_each(|hour| { println!("{}", *hour)})
                 }
             },
         Commands::Pricing {pricing_cmd} =>
@@ -275,9 +270,6 @@ async fn main() {
                             println!("Error getting best market price: {:?}", error);
                         }
                     }
-                }
-                CommodityPricingCommands::GetPriceAcrossAllMarkets { commodity } => {
-                    println!("Get best price of commodity across all best markets");
                 }
             },
         Commands::Commodity { commodity_cmd } =>

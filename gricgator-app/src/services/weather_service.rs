@@ -90,7 +90,7 @@ pub async fn get_time_period_forecast_of_day(
     let mut results: Vec<Hour> = Vec::new();
 
     for hourly_forecast in hours_in_forecast_day {
-            let parsed_time =  NaiveTime::parse_from_str(hourly_forecast.time.as_str(), "%Y-%m-%d %H:%M")?;
+            let parsed_time = NaiveTime::parse_from_str(hourly_forecast.time.as_str(), "%Y-%m-%d %H:%M")?;
             match time_period.to_lowercase().as_str() {
                 "afternoon" => {
 

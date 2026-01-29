@@ -70,6 +70,22 @@ pub struct ForecastDay {
     pub hour: Vec<Hour>
 }
 
+impl Display for ForecastDay {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        write!(f, " date: {}, average temperature: {}, average_humidity: {}, \
+        Astrological Data: \
+            sunrise: {}, sunset: {}, moon_phase: {}, moon_phase: {}",
+           self.date,
+           self.day.avg_temp_c,
+           self.day.average_humidity,
+           self.astro.sunrise,
+           self.astro.sunset,
+           self.astro.moon_phase,
+           self.astro.moon_phase
+        )
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct Forecast {
     #[serde(rename = "forecastday")]

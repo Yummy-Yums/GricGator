@@ -18,43 +18,29 @@ Usage: cli <COMMAND>
 
 🌦️  weather      Get weather forecasts and farming advisories
 Examples:
-• cli weather get-forecast Accra
-• cli weather current Kumasi
+• cli weather get-evening-weather-forecast Accra
+• cli weather get-current-weather Accra
 
 💰 pricing       Access commodity pricing across markets
 Examples:
-• cli pricing get-price maize --region Central
-• cli pricing best-markets cassava
-• cli pricing trends rice --days 7
+• cli pricing get-best-regional-market-price --commodity "cassava" --region "western"
+• cli pricing get-best-market-price --commodity "cassava"
 
 🌽 commodity     Explore available commodities and markets
 Examples:
-• cli commodity list
-• cli commodity info maize
-• cli commodity markets
-
-❓ help          Print this message or command-specific help
-Examples:
-• cli help
-• cli weather --help
-• cli pricing --help
+• cli commodity list-commodities
+• cli commodity list-categories
 
 💡 Examples
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Find best prices for maize in your region:
-$ cli pricing best-markets maize --region Central
+$ cli pricing get-best-regional-market-price --commodity "maize" --region "western"
 
 Check if it's a good day to harvest:
-$ cli weather get-forecast Tamale
-
-See 7-day price trends:
-$ cli pricing trends cassava --days 7
+$ cli weather get-weather-forecast Tamale
 
 
 🤝 Support
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Built with ❤️ for African farmers
 Powered by Rust • Data from FAO GIEWS, WFP, WeatherAPI
-
-For help with any command, use:
-cli <COMMAND> --help

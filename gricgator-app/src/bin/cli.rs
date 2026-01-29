@@ -23,8 +23,8 @@ enum Commands {
 🌦️  WEATHER COMMAND
 
 Examples:
-      • cli list-available-locations
-      • cli get-current-weather Accra
+      • cli weather list-available-locations
+      • cli weather get-current-weather Accra
     ")]
     Weather {
         #[clap(subcommand)]
@@ -32,11 +32,11 @@ Examples:
     },
     /// 💰  Commodity pricing and market trends
     #[command(before_long_help = "\
-🌦️  WEATHER COMMAND
+    PRICING COMMAND
 
 Examples:
-      • cli list-available-locations
-      • cli get-current-weather Accra
+      • cli pricing get-best-regional-market-price --commodity \"cassava\" --region \"western\"
+      • cli pricing get-best-market-price Accra --commodity \"cassava\"
     ")]
     Pricing {
         #[clap(subcommand)]
@@ -44,17 +44,16 @@ Examples:
     },
     /// 🌽  Commodity information and market listings
     #[command(before_long_help = "\
-🌦️  WEATHER COMMAND
+    COMMODITY COMMAND
 
 Examples:
-      • cli list-available-locations
-      • cli get-current-weather Accra
+      • cli commodity list-commodities
+      • cli commodity list-categories
     ")]
     Commodity {
         #[clap(subcommand)]
         commodity_cmd: CommodityCommands
     },
-
 }
 
 #[derive(Subcommand)]
@@ -173,14 +172,18 @@ async fn main() {
                     }
                 },
                 WeatherCommands::GetWeatherForecast(location) => {
-                    println!("Get Weather Forecast {:?}", location.location);
-                    println!("{}", "=".repeat(30));
 
                     let loc = &location.location.unwrap().to_lowercase();
 
-                     let _ = retry( || async {
+                     let results = retry( || async {
                           get_weather_forecast(&loc).await
                      }, 3).await;
+
+                    if let Ok(results) = results {
+                        println!("{}", results);
+                    } else {
+                        println!("Something went wrong, please try again");
+                    }
                 },
                 WeatherCommands::GetMorningWeatherForecast(location) => {
                     let loc = location.location.expect("No location specified");
@@ -234,8 +237,6 @@ async fn main() {
                                 );
                                 println!("{error_msg}");
                             } else {
-                                println!("Top Best market price for {} {:?}", commodity, result);
-
                                 result
                                     .iter()
                                     .for_each(|commodity_pricing| {

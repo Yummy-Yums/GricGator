@@ -1,34 +1,55 @@
 use std::fmt::format;
-use clap::{Parser, Subcommand};
+use clap::{command, Parser, Subcommand};
 use gricgator_app::*;
 
 const HEADER: &str = "\
-______________________
+======================
 |  GRICGATOR   APP   |
-______________________
+======================
 ";
 
 #[derive(Parser)]
 #[clap(name = "Gricgator CLI")]
-#[clap(about = "Markets Aggregator for Agriculture StakeHolders")]
+#[clap(about = "Markets Aggregator for Agriculture StakeHolders", long_about = HEADER)]
 struct Cli {
     #[clap(subcommand)]
     commands: Commands,
 }
-
+/// gh
 #[derive(Subcommand)]
 enum Commands {
-    /// Weather Subcommand to weather functionality
+    /// Get Weather Forecasts and Farming Advisories
+    #[command(before_long_help = "\
+🌦️  WEATHER COMMAND
+
+Examples:
+      • cli list-available-locations
+      • cli get-current-weather Accra
+    ")]
     Weather {
         #[clap(subcommand)]
         weather_cmd: WeatherCommands
     },
-    /// Pricing Subcommand to Pricing functionality
+    /// 💰  Commodity pricing and market trends
+    #[command(before_long_help = "\
+🌦️  WEATHER COMMAND
+
+Examples:
+      • cli list-available-locations
+      • cli get-current-weather Accra
+    ")]
     Pricing {
         #[clap(subcommand)]
         pricing_cmd: CommodityPricingCommands
     },
-    /// Pricing Subcommand to Commodities functionality
+    /// 🌽  Commodity information and market listings
+    #[command(before_long_help = "\
+🌦️  WEATHER COMMAND
+
+Examples:
+      • cli list-available-locations
+      • cli get-current-weather Accra
+    ")]
     Commodity {
         #[clap(subcommand)]
         commodity_cmd: CommodityCommands
@@ -57,9 +78,9 @@ enum WeatherCommands {
 #[derive(clap::Args)]
 #[derive(Debug)]
 struct CommonWeatherArgs {
+    /// name of location
     location: Option<String>,
 }
-
 
 #[derive(Subcommand)]
 enum CommodityCommands {

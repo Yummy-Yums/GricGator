@@ -190,7 +190,7 @@ async fn main() {
                     println!("Get Morning Weather Forecast {:?}", loc);
 
                     let response = get_time_period_forecast_of_day(&*loc, "Morning").await.unwrap();
-                    response.iter().for_each(|hour| { println!("{:?}",hour)})
+                    response.iter().for_each(|hour| { println!("{}",hour)})
                 },
                 WeatherCommands::GetAfternoonWeatherForecast(location) => {
                     let loc = location.location.expect("No location specified");

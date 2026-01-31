@@ -13,7 +13,7 @@ GricGator is a market aggregation platform designed to empower smallholder farme
 **Usage:** CLI application
 
 Create a .env in the root folder and paste for the weather api service to work 
-**API_KEY=00868b6d053d4ebaa41132701261501** (I'm aware it's not a good practice :)
+**00868b6d053d4ebaa41132701261501** (I'm aware it's not a good practice but if in case the judges want to run:)
 
 ---
 

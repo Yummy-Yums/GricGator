@@ -14,7 +14,7 @@ import harmont as hm
 def ci() -> list:
     project = hm.rust.project(path="gricgator-app")
     return hm.group([
-        project.test(flags=("--lib",), packages=("harmont-cli",)),
+        project.test(flags=("--lib",), packages=("gricgator-app",)),
 #         project.clippy(),
 #         project.fmt(),
     ])
